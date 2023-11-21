@@ -1,0 +1,3 @@
+node_modules/
+db_credentials.json
+db_local_credentials.json

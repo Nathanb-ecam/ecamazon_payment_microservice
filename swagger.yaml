@@ -1,0 +1,209 @@
+openapi: 3.0.0
+info:
+  title: Ecamazon payment
+  description: |
+    This is a description of your API.
+  version: "1"
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/18092/ecamazon_payment/1
+  - url: http://localhost:3000 # Update with your actual server URL
+
+paths:
+  /payment:
+    post:
+      summary: Make a payment
+      description: |
+        Endpoint for making a payment from the shop service. Returns a payment confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentRequest"
+      responses:
+        "200":
+          description: Successful payment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message indicating the success or additional content.
+
+  /payment/{payment_id}:
+    delete:
+      summary: Delete a payment
+      description: |
+        Endpoint for deleting a payment by ID.
+      parameters:
+        - in: path
+          name: payment_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Payment deleted successfully
+
+  /payments:
+    get:
+      summary: List payments
+      description: |
+        Endpoint for listing all payments.
+      responses:
+        "200":
+          description: List of payments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaymentObject"
+
+  /payment-method:
+    get:
+      summary: List payment methods
+      description: |
+        Endpoint for listing all payment methods.
+      responses:
+        "200":
+          description: List of payment methods
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaymentMethod"
+    post:
+      summary: Add a payment method
+      description: |
+        Endpoint for adding a new payment method.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentMethod"
+      responses:
+        "201":
+          description: Payment method added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Response message
+  /payment-method/{method_id}:
+    get:
+      summary: Get a payment method
+      description: |
+        Endpoint for listing a payment method.
+      parameters:
+        - in: path
+          name: method_id
+          schema:
+            type: integer
+          required: true
+          description: "ID de la méthode"
+      responses:
+        "200":
+          description: Get a payment method
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaymentMethod"
+    delete:
+      summary: Delete a payment method
+      description: |
+        Endpoint for deleting a payment method by ID.
+      parameters:
+        - in: path
+          name: method_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Payment method deleted successfully
+
+  /refund:
+    post:
+      summary: Make a refund
+      description: |
+        Endpoint for making a refund from the shipping service.
+      responses:
+        "200":
+          description: Successful refund
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefundRequest"
+
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: The ID of the user making the payment.
+        amount:
+          type: number
+          description: The amount of the payment.
+    RefundRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: The ID of the user thats needs to receive a refund.
+        amount:
+          type: number
+          description: The amount of the refund.
+
+    PaymentObject:
+      type: object
+      properties:
+        payment_id:
+          type: integer
+          description: Unique Id of a given payment
+        amount:
+          type: integer
+          description: The amount of the payment
+
+        method_id:
+          type: integer
+          description: Unique id of a payment method
+        refund:
+          type: string
+          description: 3 digit security code
+        user_id:
+          type: integer
+          description: User id
+
+    PaymentMethod:
+      type: object
+      properties:
+        method_id:
+          type: integer
+          description: Unique Id of method
+        type:
+          type: string
+          description: The type of payment(visa,mastercard,...)
+
+        cardNumber:
+          type: string
+          description: 16 digit code
+        threeDigitCode:
+          type: string
+          description: 3 digit security code
+        user_id:
+          type: integer
+          description: User id

@@ -1,0 +1,44 @@
+version: "3"
+services:
+  payment_API:
+    image: ecamazon_payment_api
+    ports:
+      - "3000:3000"
+    command: "npm start"
+    environment:
+      CASSANDRA_CONTACT_POINTS: payment_DB
+      CASSANDRA_KEYSPACE: ecamazon_payment
+    networks:
+      payment_network:
+        ipv4_address: 192.168.92.21
+    restart: on-failure
+
+    depends_on:
+      - payment_DB
+
+  payment_DB:
+    image: cassandra
+    ports:
+      - "9042:9042"
+
+    networks:
+      payment_network:
+        ipv4_address: 192.168.92.20
+    volumes:
+      - ./my_cassandra_storage:/var/lib/cassandra
+
+  # payment_frontend:
+  #   image: ecamazon_payment_frontend
+  #   ports:
+  #     - "5050:5173"
+  #   command: "npm start"
+  #   networks:
+  #     payment_network:
+  #       ipv4_address: 192.168.92.22
+
+networks:
+  payment_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.92.0/24"

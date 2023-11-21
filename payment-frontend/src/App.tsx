@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import MethodManager from './components/MethodManager';
+import AppNavbar from './components/AppNavbar';
+import PaymentList from './components/PaymentList';
 
 function App() {
   return (
-      <div>
-        Hello world
-        <MethodManager></MethodManager>
-      </div>
+      <>
+        <AppNavbar></AppNavbar>
+        <PaymentList title="Payments"></PaymentList>
+      </>
   );
 }
 

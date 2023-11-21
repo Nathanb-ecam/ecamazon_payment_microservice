@@ -8,3 +8,8 @@ minikube start
 kubectl get pods
 
 ```
+
+```
+kubectl get nodes
+
+```

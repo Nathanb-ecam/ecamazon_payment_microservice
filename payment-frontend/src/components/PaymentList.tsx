@@ -2,11 +2,14 @@
 
 import React from 'react';
 import {useEffect,useState} from 'react';
-import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 
 
-const BASE_URL = "http://localhost:3000/api"
+// const BASE_URL = "http://payment_API:3000/api"
+// const api_ip = process.env.REACT_APP_API_CONTACT_POINT || 'localhost';
+const api_ip = "localhost";
+const BASE_URL = `http://${api_ip}:3000/api`;
+
 
 
 interface Props{
@@ -64,7 +67,7 @@ function PaymentList({title}:Props){
                             <th scope="row">{index+1}</th>
                             <td>{payment.user_id ?? 'Null'}</td>
                             <td>{payment.amount ?? 'Null'}</td>
-                            <td>{payment.refund ?? 'Null'}</td>
+                            <td><input type="checkbox"  checked={payment.refund} disabled /></td>
                         </tr>
                     ))}
 

@@ -30,7 +30,7 @@ jobs:
         run: cd $GITHUB_WORKSPACE
 
       - name: Change to the desired directory
-        run: cd payment-api
+        run: cd ecamazon_payment_microservice/payment-api
 
       - name: Current directory
         run: pwd

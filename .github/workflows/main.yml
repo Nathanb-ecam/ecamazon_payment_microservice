@@ -10,14 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Clear npm cache
-      #   run: npm cache clean -f
-
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Change to the desired directory
-        run: cd /payment-api
+        run: cd payment-api
 
       - name: Set up Node.js
         uses: actions/setup-node@v2

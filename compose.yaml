@@ -27,14 +27,17 @@ services:
     volumes:
       - ./my_cassandra_storage:/var/lib/cassandra
 
-  # payment_frontend:
-  #   image: ecamazon_payment_frontend
-  #   ports:
-  #     - "5050:5173"
-  #   command: "npm start"
-  #   networks:
-  #     payment_network:
-  #       ipv4_address: 192.168.92.22
+  payment_frontend:
+    image: ecamazon_payment_frontend
+    ports:
+      - "4000:4000"
+    command: "npm run dev"
+    environment:
+      REACT_APP_API_CONTACT_POINTS: payment_API
+
+    networks:
+      payment_network:
+        ipv4_address: 192.168.92.22
 
 networks:
   payment_network:

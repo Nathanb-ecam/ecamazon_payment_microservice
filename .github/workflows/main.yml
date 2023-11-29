@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Change to the project root
-      #   run: cd $GITHUB_WORKSPACE
-
       - name: Debugging
         run: |
           pwd
@@ -25,6 +22,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18
+
+      - name: Change to the project root
+        run: cd $GITHUB_WORKSPACE
+
+      - name: This should be root path
+        run: cd $GITHUB_WORKSPACE
 
       - name: Change to the desired directory
         run: cd payment-api

@@ -35,7 +35,6 @@ async function initialize() {
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS payment(
             payment_id UUID PRIMARY KEY,
-            method_id UUID,
             amount float,
             refund boolean,
             user_id int

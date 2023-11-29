@@ -18,14 +18,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Change to the desired directory
-        run: cd payment-api
-
-      - name: Current directory
-        run: pwd
-
-      - name: Install dependencies
+      - name: Install dependencies for payment-api
+        working-directory: payment-api
         run: npm install
 
-      - name: Run tests
+      - name: Run tests for payment-api
+        working-directory: payment-api
         run: npm test

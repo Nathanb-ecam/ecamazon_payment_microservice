@@ -13,24 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debugging
-        run: |
-          pwd
-          ls -la
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 18
 
-      - name: Change to the project root
-        run: cd $GITHUB_WORKSPACE
-
-      - name: This should be root path
-        run: cd $GITHUB_WORKSPACE
-
       - name: Change to the desired directory
-        run: cd ecamazon_payment_microservice/payment-api
+        run: cd payment-api
 
       - name: Current directory
         run: pwd

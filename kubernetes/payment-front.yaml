@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecamazon-payment-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ecamazon-payment-frontend
+  template:
+    metadata:
+      labels:
+        app: ecamazon-payment-frontend
+    spec:
+      containers:
+        - name: ecamazon-payment-frontend
+          image: thenatz1999/ecamazon_payment_frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          env:
+            - name: REACT_APP_API_CONTACT_POINTS
+              value: payment_API
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecamazon-payment-frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 4000
+      targetPort: 4000
+  selector:
+    app: ecamazon-payment-frontend

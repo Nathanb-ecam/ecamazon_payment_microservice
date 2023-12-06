@@ -1,0 +1,39 @@
+# node-api-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecamazon-payment-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ecamazon-payment-api
+  template:
+    metadata:
+      labels:
+        app: ecamazon-payment-api
+    spec:
+      containers:
+        - name: ecamazon-payment-api
+          image: thenatz1999/ecamazon_payment_api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: CASSANDRA_HOST
+              value: ecamazon-payment-db
+            - name: CASSANDRA_KEYSPACE
+              value: ecamazon_payment
+            # - name: API_PORT
+            #   value: "3070"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecamazon-payment-api
+spec:
+  ports:
+    - port: 3000
+  selector:
+    app: ecamazon-payment-api

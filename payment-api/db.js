@@ -1,10 +1,10 @@
 const cassandra = require('cassandra-driver');
 
-const contactPoints = process.env.CASSANDRA_CONTACT_POINTS || 'localhost';
+const contactPoint = process.env.CASSANDRA_HOST || 'localhost';
 const keyspace = process.env.CASSANDRA_KEYSPACE || "system"
 
 const connection = new cassandra.Client({
-    contactPoints: [contactPoints],// payment_DB 
+    contactPoints: [contactPoint],// payment_DB 
     keyspace: "system",
     localDataCenter: 'datacenter1' 
 });
@@ -13,6 +13,7 @@ const connection = new cassandra.Client({
 
 async function initialize() {
     try {
+      console.log("CASSANDRA_HOST",contactPoint)
       await connection.connect();
       
       // Create your keyspace

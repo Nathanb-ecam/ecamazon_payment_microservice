@@ -1,12 +1,14 @@
 version: "3"
 services:
   payment_API:
-    image: ecamazon_payment_api
+    image: dev_ecamazon_payment_api
     ports:
       - "3000:3000"
-    command: "npm start"
+    command: "nodemon server.js"
+    volumes:
+      - ./payment-api/:/app
     environment:
-      CASSANDRA_CONTACT_POINTS: payment_DB
+      CASSANDRA_HOST: payment_DB
       CASSANDRA_KEYSPACE: ecamazon_payment
     networks:
       payment_network:
@@ -32,9 +34,10 @@ services:
     ports:
       - "4000:4000"
     command: "npm run dev"
+    # volumes:
+    #   - ./payment-frontend/:/app/
     environment:
-      REACT_APP_API_CONTACT_POINTS: payment_API
-
+      REACT_APP_API_CONTACT_POINT: 192.168.92.21 # should match API container ip
     networks:
       payment_network:
         ipv4_address: 192.168.92.22

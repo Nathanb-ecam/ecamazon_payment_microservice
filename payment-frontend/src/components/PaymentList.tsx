@@ -5,11 +5,11 @@ import {useEffect,useState} from 'react';
 import Table from 'react-bootstrap/Table';
 
 
-// const BASE_URL = "http://payment_API:3000/api"
-// const api_ip = process.env.REACT_APP_API_CONTACT_POINT || 'localhost';
-const api_ip = "localhost";
+const api_ip = import.meta.env.REACT_APP_API_CONTACT_POINT || 'localhost';
+// console.log("REACT_APP_API_CONTACT_POINT",api_ip);
+// const api_ip = 'localhost'
 const BASE_URL = `http://${api_ip}:3000/api`;
-
+// console.log("API_URL",BASE_URL)
 
 
 interface Props{
@@ -27,16 +27,7 @@ function PaymentList({title}:Props){
           const result = await response.json();
           console.log("Payments", result.result)
           setPayments(result.result);
-        //   payments.map((payment,index)=>{
-        //       console.log("payment")
-        //       console.log(payment.payment_id)
-        //       console.log(payment.method_id)
-        //       console.log(payment.user_id)
-        //       console.log(payment.amount)
-        //       console.log(payment.refund)
 
-        //   }
-        // )
 
 
         } catch (error) {

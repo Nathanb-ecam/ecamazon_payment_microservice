@@ -47,7 +47,7 @@ exports.addPaymentMethod = async function(req,res){
           });
     }
     else{
-        res.json({"payment-method-error":inputErrMessages})
+        res.status(401).json({"payment-method-error":inputErrMessages})
     }
     
 }
@@ -59,7 +59,7 @@ exports.listMethods = function (req,res){
           res.status(500).json({message : err})
         } else {
         //   console.log('Payment methods found:', result.rows);
-          res.json({"result":result.rows})
+          res.status(200).json({"result":result.rows})
         }
       });
 

@@ -14,13 +14,13 @@ spec:
     spec:
       containers:
         - name: ecamazon-payment-frontend
-          image: thenatz1999/ecamazon_payment_frontend
+          image: thenatz1999/ecamazon_payment_front
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
           env:
-            - name: REACT_APP_API_CONTACT_POINTS
-              value: payment_API
+            - name: REACT_APP_API_CONTACT_POINT
+              value: ecamazon-payment-api.default.svc.cluster.local
 ---
 apiVersion: v1
 kind: Service

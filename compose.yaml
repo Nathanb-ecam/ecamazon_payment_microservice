@@ -1,7 +1,9 @@
 version: "3"
 services:
   payment_API:
-    image: dev_ecamazon_payment_api
+    image: ecamazon_payment_api
+    imagePullPolicy: Always
+
     ports:
       - "3000:3000"
     command: "nodemon server.js"
@@ -31,6 +33,8 @@ services:
 
   payment_frontend:
     image: ecamazon_payment_frontend
+    imagePullPolicy: Always
+
     ports:
       - "4000:4000"
     command: "npm run dev"

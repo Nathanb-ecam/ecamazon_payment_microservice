@@ -54,7 +54,7 @@ exports.makePayment = async function(req,res){
             })
             .catch(error => {
                 console.error('Error registering payment transaction:', error)
-                res.status(500).json({message:err.message})
+                res.status(500).json({message:error.message})
             });
 
 

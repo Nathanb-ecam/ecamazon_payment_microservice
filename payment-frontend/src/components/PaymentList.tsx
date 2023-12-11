@@ -5,11 +5,12 @@ import {useEffect,useState} from 'react';
 import Table from 'react-bootstrap/Table';
 
 
-const api_ip = import.meta.env.REACT_APP_API_CONTACT_POINT || 'localhost';
+// const api_ip = import.meta.env.REACT_APP_API_CONTACT_POINT || 'localhost';
 // console.log("REACT_APP_API_CONTACT_POINT",api_ip);
+const api_ip = 'ecamazon-payment-api.default.svc.cluster.local'
 // const api_ip = 'localhost'
 const BASE_URL = `http://${api_ip}:3000/api`;
-// console.log("API_URL",BASE_URL)
+console.log("API_URL",BASE_URL);
 
 
 interface Props{

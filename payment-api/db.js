@@ -18,10 +18,10 @@ async function initialize() {
       await connection.connect();
       
       // FOR SINGLE DATABASE REPLICA
-      // await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}`);
+      await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}`);
 
       // FOR MULTIPLE REPLICAS 
-      await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': ${replicas}}`);
+      // await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': ${replicas}}`);
   
       // Switch to your keyspace
       await connection.execute(`USE ${keyspace}`);

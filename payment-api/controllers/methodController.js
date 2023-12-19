@@ -7,7 +7,6 @@ const connection = require('../db.js');
 // CASSANDRA QUERIES 
 const queryInsert = 'INSERT INTO messages (id, sender, message) VALUES (?,?,?);'; 
 
-
 // CRUD : payment method 
 const queryDeleteMethod = "DELETE FROM method where method_id=?"
 const queryFindMethodById = "SELECT * FROM method where method_id=?"

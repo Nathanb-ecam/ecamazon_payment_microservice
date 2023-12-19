@@ -62,9 +62,6 @@ exports.listMethods = function (req,res){
           res.status(200).json({"result":result.rows})
         }
       });
-
-
-
 }
 
 

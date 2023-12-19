@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ecamazon-payment-frontend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ecamazon-payment-frontend
@@ -14,13 +14,17 @@ spec:
     spec:
       containers:
         - name: ecamazon-payment-frontend
-          image: thenatz1999/ecamazon_payment_front
+          image: thenatz1999/ecamazon_payment_frontend_minikube
+          # image: thenatz1999/ecamazon_payment_frontend_linux_ecamazon1 # ecamazon1
+          # image: thenatz1999/ecamazon_payment_frontend_linux # ecamazon2
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
           env:
             - name: REACT_APP_API_CONTACT_POINT
               value: ecamazon-payment-api.default.svc.cluster.local
+            # - name: VITE_REACT_APP_API_URL
+            #   value: http://10.9.0.1:30021
 ---
 apiVersion: v1
 kind: Service
@@ -29,7 +33,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 4000
+    - port: 3030
       targetPort: 4000
+      # REMOVE FOR LOCAL : minikube
+      nodePort: 30008 # ecamazon1
+      # nodePort: 30020 # ecamazon2
   selector:
     app: ecamazon-payment-frontend

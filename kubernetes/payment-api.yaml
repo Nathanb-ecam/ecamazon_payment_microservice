@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: ecamazon-payment-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ecamazon-payment-api
@@ -16,7 +16,9 @@ spec:
     spec:
       containers:
         - name: ecamazon-payment-api
-          image: thenatz1999/ecamazon_payment_api
+          # image: thenatz1999/ecamazon_payment_api_linux # ecam linux cluster
+          # IN TEST
+          image: thenatz1999/ecamazon_payment_api_minikube #my computer with multiple db replicas
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -25,6 +27,9 @@ spec:
               value: ecamazon-payment-db
             - name: CASSANDRA_KEYSPACE
               value: ecamazon_payment
+              # ONLY WHEN USING THE IMAGE : ecamazon_payment_api_mutliple_db
+            - name: CASSANDRA_REPLICAS
+              value: "1"
             # - name: API_PORT
             #   value: "3070"
 ---
@@ -35,7 +40,11 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 3000
+    - port: 3040
       targetPort: 3000
+      # REMOVE FOR LOCAL : minikube
+      nodePort: 30009 # ecamazon1
+      # nodePort: 30021 # ecamazon2
+
   selector:
     app: ecamazon-payment-api

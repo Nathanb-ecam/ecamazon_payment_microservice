@@ -1,0 +1,32 @@
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: ecamazon-payment-db
+# spec:
+#   replicas: 1
+#   serviceName: ecamazon-payment-db
+#   selector:
+#     matchLabels:
+#       app: ecamazon-payment-db
+#   template:
+#     metadata:
+#       labels:
+#         app: ecamazon-payment-db
+#     spec:
+#       containers:
+#         - name: cassandra
+#           image: cassandra:latest
+#           ports:
+#             - containerPort: 9042
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: ecamazon-payment-db
+# spec:
+#   clusterIP: None # headless service
+#   selector:
+#     app: ecamazon-payment-db
+#   ports:
+#     - protocol: TCP
+#       port: 9042

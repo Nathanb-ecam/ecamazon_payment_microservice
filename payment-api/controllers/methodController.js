@@ -41,7 +41,7 @@ exports.addPaymentMethod = async function(req,res){
               console.error('Error inserting new method payment:', err);
               res.json({message: err})
             } else {
-              console.log('Payment method inserted successfully');
+            //   console.log('Payment method inserted successfully');
               res.json({message: "Succesfully added payment method"});
             }
           });

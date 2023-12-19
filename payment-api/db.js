@@ -1,7 +1,8 @@
 const cassandra = require('cassandra-driver');
 
 const contactPoint = process.env.CASSANDRA_HOST || 'localhost';
-const keyspace = process.env.CASSANDRA_KEYSPACE || "system"
+const keyspace = process.env.CASSANDRA_KEYSPACE || "system";
+const replicas = process.env.CASSANDRA_REPLICAS || 1;
 
 const connection = new cassandra.Client({
     contactPoints: [contactPoint],// payment_DB 
@@ -16,8 +17,11 @@ async function initialize() {
       console.log("CASSANDRA_HOST",contactPoint)
       await connection.connect();
       
-      // Create your keyspace
-      await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}`);
+      // FOR SINGLE DATABASE REPLICA
+      // await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}`);
+
+      // FOR MULTIPLE REPLICAS 
+      await connection.execute(`CREATE KEYSPACE IF NOT EXISTS ${keyspace} WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': ${replicas}}`);
   
       // Switch to your keyspace
       await connection.execute(`USE ${keyspace}`);
@@ -51,6 +55,7 @@ async function initialize() {
       `)
   
       console.log('Keyspace and tables created successfully.');
+      console.log(`Created ${keyspace} with ${replicas} replicas`);
     } finally {
       console.log("Database initialization finished ")
     }

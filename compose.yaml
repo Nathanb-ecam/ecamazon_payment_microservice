@@ -1,9 +1,7 @@
 version: "3"
 services:
   payment_API:
-    image: ecamazon_payment_api
-    imagePullPolicy: Always
-
+    image: thenatz1999/ecamazon_payment_api
     ports:
       - "3000:3000"
     command: "nodemon server.js"
@@ -32,9 +30,7 @@ services:
       - ./my_cassandra_storage:/var/lib/cassandra
 
   payment_frontend:
-    image: ecamazon_payment_frontend
-    imagePullPolicy: Always
-
+    image: thenatz1999/ecamazon_payment_front
     ports:
       - "4000:4000"
     command: "npm run dev"

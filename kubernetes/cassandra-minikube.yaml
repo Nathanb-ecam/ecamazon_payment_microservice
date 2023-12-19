@@ -1,9 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: k8s.io/minikube-hostpath # Replace with your actual storage provisioner
+
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: ecamazon-payment-db
 spec:
-  replicas: 1
+  replicas: 1 # MUST MATCH THE NUMBER OF REPLICAS SPECIFIED IN THE PAYMENT API
   serviceName: ecamazon-payment-db
   selector:
     matchLabels:
@@ -18,6 +25,17 @@ spec:
           image: cassandra:latest
           ports:
             - containerPort: 9042
+          volumeMounts:
+            - name: cassandra-data
+              mountPath: /var/lib/cassandra
+  volumeClaimTemplates:
+    - metadata:
+        name: cassandra-data
+      spec:
+        accessModes: ["ReadWriteOnce"] # ReadWriteMany
+        resources:
+          requests:
+            storage: 10Gi # Adjust the storage size as needed
 ---
 apiVersion: v1
 kind: Service

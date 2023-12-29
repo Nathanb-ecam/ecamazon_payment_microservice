@@ -1,4 +1,4 @@
-name: Build and Push backend Image
+name: Build and Push Docker frontend image
 
 on:
   push:
@@ -13,12 +13,12 @@ jobs:
       - name: Build and publish image
         uses: actions/checkout@v1
 
-      - name: Build Docker backend image
-        working-directory: payment-api
-        run: docker build --platform linux/amd64 -t thenatz1999/ecamazon_payment_api_linux .
+      - name: Build Docker frontend image
+        working-directory: payment-frontend
+        run: docker build --platform linux/amd64 -t thenatz1999/ecamazon_payment_frontend_linux .
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push thenatz1999/ecamazon_payment_api_linux
+        run: docker push thenatz1999/ecamazon_payment_frontend_linux

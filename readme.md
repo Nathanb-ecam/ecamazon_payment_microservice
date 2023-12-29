@@ -8,4 +8,4 @@ Allows to create make payment/refund request and to add a new payment method for
 
 ## Frontend : vite react
 
-To show the payments that has been introduced by the other microservices.
+Shows the payments that has been introduced by the other microservices.

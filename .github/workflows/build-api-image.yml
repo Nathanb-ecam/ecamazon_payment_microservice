@@ -13,11 +13,6 @@ jobs:
       - name: Build and publish image
         uses: actions/checkout@v1
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v1
-        with:
-          dockerfile: payment-api/Dockerfile 
-
       - name: Build Docker image
         working-directory: payment-api
         run: docker build -t thenatz1999/ecamazon_payment_api_linux .
